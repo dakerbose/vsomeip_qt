@@ -1,0 +1,19 @@
+{
+  "unicast": "192.168.123.217",
+  "netmask": "255.255.255.0",
+  "logging": {
+    "level": "debug"
+  },
+  "applications": [
+    {
+      "name": "HelloClient",
+      "id": "0x2000"
+    }
+  ],
+  "service-discovery": {
+    "enable": true,
+    "multicast": "224.224.224.245",
+    "port": "30490",
+    "interface": "wlan0"
+  }
+}
