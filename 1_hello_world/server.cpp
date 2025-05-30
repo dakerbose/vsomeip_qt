@@ -1,3 +1,9 @@
+/*
+2. service是在树莓派 wlan0上面配置的192.168.123.154
+   g++ -std=c++11 server.cpp -o server -lvsomeip3 -pthread
+   VSOMEIP_CONFIGURATION=vsomeip_server.json ./server
+
+*/
 #include <vsomeip/vsomeip.hpp>
 #include <iostream>
 #include <thread>
