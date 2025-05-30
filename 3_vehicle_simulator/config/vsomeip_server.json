@@ -1,0 +1,35 @@
+{
+  "unicast": "192.168.123.52",
+  "netmask": "255.255.255.0",
+  "logging": {
+    "level": "debug"
+  },
+  "applications": [
+    {
+      "name": "HelloServer",
+      "id": "0x1000"
+    }
+  ],
+  "services": [
+    {
+      "service": "0x1234",
+      "instance": "0x5678",
+      "reliable": "30500",
+      "events": [
+        {
+          "event": "0x8778",
+          "eventgroup": "0x4465",
+          "is_field": true,
+          "reliability": "reliable"
+        }
+      ]
+    }
+  ],
+  "service-discovery": {
+    "enable": true,
+    "multicast": "224.224.224.245",
+    "port": "30490",
+    "interface": "ens33"
+  }
+}
+
