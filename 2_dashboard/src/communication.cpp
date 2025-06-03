@@ -138,8 +138,8 @@ void run() {
 
 void *init_communication(void *) {
     // 强制加载配置文件
-    // setenv("VSOMEIP_CONFIGURATION", "/home/dakerbose/vsomeip_qt/1_hello_world/vsomeip_client.json", 1);
-    setenv("VSOMEIP_CONFIGURATION", JSON_CONFIG_FILE, 1);
+    setenv("VSOMEIP_CONFIGURATION", "../config/vsomeip_client.json", 1);
+    // setenv("VSOMEIP_CONFIGURATION", JSON_CONFIG_FILE, 1);
     QThread::sleep(2); // 等待服务初始化
     cluster->setSpeed(QVariant(0));
     cluster->setRpm(0);
