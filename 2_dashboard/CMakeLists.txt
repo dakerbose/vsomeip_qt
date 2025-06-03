@@ -41,7 +41,7 @@ target_link_libraries(dashboard
     boost_filesystem
 )
 
-set(JSON_CONFIG_FILE "/home/dakerbose/vsomeip_qt/1_hello_world/vsomeip_client.json" CACHE FILEPATH "VSOMEIP JSON config file")
+set(JSON_CONFIG_FILE "config/vsomeip_client.json" CACHE FILEPATH "VSOMEIP JSON config file")
 target_compile_definitions(dashboard PRIVATE JSON_CONFIG_FILE="${JSON_CONFIG_FILE}")
 
 set(QML_FILES
