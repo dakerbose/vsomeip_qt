@@ -47,8 +47,8 @@ void on_message(const std::shared_ptr<vsomeip::message> &_response) {
 
 void *init_communication(void *) {
     // 强制加载配置文件
-    // setenv("VSOMEIP_CONFIGURATION", "/home/dakerbose/Someip/vsomeip/config/vsomeip_dashboard.json", 1);
-    setenv("VSOMEIP_CONFIGURATION", JSON_CONFIG_FILE, 1);
+    setenv("VSOMEIP_CONFIGURATION", "../config/vsomeip_server.json", 1);
+    // setenv("VSOMEIP_CONFIGURATION", JSON_CONFIG_FILE, 1);
 
     app = vsomeip::runtime::get()->create_application("HelloServer");
     app->init();

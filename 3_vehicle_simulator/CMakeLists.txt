@@ -43,6 +43,3 @@ target_link_libraries(VehicleSimulator
     boost_log
     boost_filesystem
 )
-
-set(JSON_CONFIG_FILE "config/vsomeip_vehicle_simulator.json" CACHE FILEPATH "VSOMEIP JSON config file")
-target_compile_definitions(VehicleSimulator PRIVATE JSON_CONFIG_FILE="${JSON_CONFIG_FILE}")
