@@ -1,0 +1,3 @@
+[submodule "vsomeip_qnx"]
+	path = vsomeip_qnx
+	url = git@github.com:dakerbose/vsomeip_qnx.git
