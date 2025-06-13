@@ -6,7 +6,7 @@
   },
   "applications": [
     {
-      "name": "HelloClient",
+      "name": "Dashboard",
       "id": "0x2000"
     }
   ],

@@ -54,20 +54,21 @@
 #include <QDebug>
 #include <QQmlProperty>
 #include <QString>
-#include "pthread.h"
+#include <mutex>
 #include "communication.h"
 #include <cluster.h>
-Cluster *cluster;
 
+Cluster *cluster;
 pthread_t tid_com;
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QGuiApplication qt_app(argc, argv);
 
     QFontDatabase::addApplicationFont(":/fonts/DejaVuSans.ttf");
-    app.setFont(QFont("DejaVu Sans"));
-    cluster=Cluster::instance();
+    qt_app.setFont(QFont("DejaVu Sans"));
+
+    cluster = &Cluster::instance();
 
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/dashboard.qml"));
@@ -76,11 +77,11 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("Cluster",cluster);
 
-    cluster->setSpeed(QVariant(280));
-    cluster->setRpm(8);
-    cluster->setTemp(10);
-    cluster->setFuel(10);
-    pthread_create(&tid_com,NULL,init_communication,NULL);
+    std::thread communication_thread([](){
+        init_communication(nullptr);
+    });
+    communication_thread.detach();
 
-    return app.exec();
+    
+    return qt_app.exec();
 }

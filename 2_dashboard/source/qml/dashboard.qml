@@ -88,7 +88,7 @@ Window {
             height: 34
             color: "#f90f0f"
 
-            text:"ECLABS "
+            text:"Dashboard"
             font.bold: true
             styleColor: "#f33939"
             textFormat: Text.RichText

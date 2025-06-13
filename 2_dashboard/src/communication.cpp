@@ -99,29 +99,8 @@ void on_availability(vsomeip::service_t _service, vsomeip::instance_t _instance,
 
     std::unique_lock<std::mutex> lock(mutex);
     service_available = _is_available; // 设置服务可用标志
-    std::cout << "_is_available: the first" <<_is_available << endl;
     condition.notify_one(); // 通知等待的线程
     std::cout << "_is_available: " <<_is_available;
-    if (_is_available) {
-        // 1. 请求事件，并关联事件组
-        std::set<vsomeip::eventgroup_t> its_groups;
-        its_groups.insert(SAMPLE_EVENTGROUP_ID); // 添加事件组到集合
-
-        app->request_event(
-            SAMPLE_SERVICE_ID,
-            SAMPLE_INSTANCE_ID,
-            SAMPLE_EVENT_ID,
-            its_groups,                       // 事件组集合
-            vsomeip::event_type_e::ET_FIELD
-        );
-
-        // 2. 订阅事件组
-        app->subscribe(
-            SAMPLE_SERVICE_ID,
-            SAMPLE_INSTANCE_ID,
-            SAMPLE_EVENTGROUP_ID
-        );
-    }
 }
 
 void run() {
@@ -141,12 +120,8 @@ void *init_communication(void *) {
     setenv("VSOMEIP_CONFIGURATION", "../config/vsomeip_client.json", 1);
     // setenv("VSOMEIP_CONFIGURATION", JSON_CONFIG_FILE, 1);
     QThread::sleep(2); // 等待服务初始化
-    cluster->setSpeed(QVariant(0));
-    cluster->setRpm(0);
-    cluster->setTemp(0);
-    cluster->setFuel(0);
     
-    app = vsomeip::runtime::get()->create_application("HelloClient");
+    app = vsomeip::runtime::get()->create_application("Dashboard");
     app->init();
     app->register_availability_handler(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID, on_availability);
     app->request_service(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID);
@@ -154,5 +129,6 @@ void *init_communication(void *) {
 
     std::thread sender(run); // 启动事件处理线程
     app->start(); // 启动应用
+
     return nullptr;
 }
