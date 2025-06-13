@@ -145,7 +145,7 @@ void *init_communication(void *) {
     cluster->setRpm(0);
     cluster->setTemp(0);
     cluster->setFuel(0);
-
+    
     app = vsomeip::runtime::get()->create_application("HelloClient");
     app->init();
     app->register_availability_handler(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID, on_availability);

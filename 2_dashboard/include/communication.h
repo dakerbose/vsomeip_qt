@@ -21,12 +21,13 @@ void  * init_communication(void *);
 typedef enum {
     TYPE_DATA_SPEED,
     TYPE_DATA_RPM,
-     TYPE_DATA_FUEL,
-     TYPE_DATA_TEMP,
-     TYPE_DATA_LI,
-     TYPE_DATA_RI,
-     TYPE_DATA_UN
+    TYPE_DATA_FUEL,
+    TYPE_DATA_TEMP,
+    TYPE_DATA_LI,
+    TYPE_DATA_RI,
+    TYPE_DATA_UN
 }method_t;
+
 typedef struct s_vehicle_data{
     char type;
     int message;
@@ -34,4 +35,3 @@ typedef struct s_vehicle_data{
 }s_vehicle_data_t;
 
 #endif
-

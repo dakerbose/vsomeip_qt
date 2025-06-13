@@ -54,7 +54,6 @@ void *init_communication(void *) {
     app->init();
     app->register_message_handler(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID, SAMPLE_METHOD_ID, on_message);
     app->offer_service(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID);
-
     std::set<vsomeip::eventgroup_t> its_groups;
     its_groups.insert(SAMPLE_EVENTGROUP_ID);
     app->offer_event(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID, SAMPLE_EVENT_ID, its_groups, vsomeip_v3::event_type_e::ET_FIELD);
