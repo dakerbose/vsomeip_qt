@@ -50,20 +50,24 @@ void on_message(const std::shared_ptr<vsomeip::message> &_response) {
     its_message << "(" << std::dec << l << ") ";
 
     for (uint32_t i = 0; i < l; ++i) {
-        std::cout <<  "Hujiayang";
         its_message << std::hex << std::setw(2) << std::setfill('0')
                     << (int)its_payload->get_data()[i] << " ";
     }
     std::cout << its_message.str() << std::endl;
 
     // 数据解析
-    if (l < 2) {
+    if (l < 3) { // 确保 payload 至少有 3 个字节
         std::cerr << "Received payload is too short!" << std::endl;
         return; // 处理错误
     }
 
-    data.type = (int)*(its_payload->get_data());
-    data.message = (int)*(its_payload->get_data() + 1);
+    // 解析数据
+    const vsomeip::byte_t* data_ptr = its_payload->get_data();
+    data.type = static_cast<int>(data_ptr[0]); // 第 1 字节为 type
+    data.message = (static_cast<int>(data_ptr[1]) << 8) | static_cast<int>(data_ptr[2]); // 高低字节组合
+
+    std::cout << "CLIENT: Parsed message: type=" << data.type
+              << ", value=" << data.message << std::endl;
 
     // 根据数据类型更新 cluster
     switch (data.type) {
@@ -84,8 +88,6 @@ void on_message(const std::shared_ptr<vsomeip::message> &_response) {
             break;
         case TYPE_DATA_RI:
             cluster->set_r_value(data.message);
-            break;
-        case TYPE_DATA_UN:
             break;
         default:
             std::cerr << "Unknown data type received!" << std::endl;
