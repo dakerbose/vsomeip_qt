@@ -15,15 +15,20 @@ std::shared_ptr< vsomeip::application > app;
 std::mutex mutex;
 std::condition_variable condition;
 
-void send_data(s_vehicle_data_t data) {
+void send_data(const s_vehicle_data_t &data) {
+    std::shared_ptr<vsomeip::payload> its_payload = vsomeip::runtime::get()->create_payload();
+    std::vector<vsomeip::byte_t> its_payload_data;
 
-  std::shared_ptr< vsomeip::payload > its_payload = vsomeip::runtime::get()->create_payload();
-  std::vector< vsomeip::byte_t > its_payload_data;
-  its_payload_data.push_back(data.type);
-   its_payload_data.push_back(data.message);
-  its_payload->set_data(its_payload_data);
-  app->notify(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID, SAMPLE_EVENT_ID, its_payload);
+    // 构造发布的消息格式
+    its_payload_data.push_back(static_cast<vsomeip::byte_t>(data.type));
+    its_payload_data.push_back(static_cast<vsomeip::byte_t>((data.message >> 8) & 0xFF));
+    its_payload_data.push_back(static_cast<vsomeip::byte_t>(data.message & 0xFF));
 
+    its_payload->set_data(its_payload_data);
+    app->notify(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID, SAMPLE_EVENT_ID, its_payload);
+
+    std::cout << "Published message: type=" << static_cast<int>(data.type)
+              << ", message=" << data.message << std::endl;
 }
 
 void on_message(const std::shared_ptr<vsomeip::message> &_response) {
@@ -64,6 +69,7 @@ void *init_communication(void *) {
     std::cout << "Sending initial notification with data: " << std::hex << (int)init_data[0] << std::endl;
     init_payload->set_data(init_data);
     app->notify(SAMPLE_SERVICE_ID, SAMPLE_INSTANCE_ID, SAMPLE_EVENT_ID, init_payload);
+
     QThread::sleep(2); // 暂停2秒
     app->start();
 

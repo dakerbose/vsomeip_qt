@@ -1,5 +1,5 @@
 {
-  "unicast": "10.100.5.180",
+  "unicast": "10.100.5.159",
   "netmask": "255.255.255.0",
   "logging": {
     "level": "debug"
@@ -17,7 +17,7 @@
       "reliable": "30500",
       "events": [
         {
-          "event": "0x8778",
+          "event": "1001",
           "eventgroup": "0x4465",
           "is_field": true,
           "reliability": "reliable"
@@ -28,7 +28,7 @@
   "service-discovery": {
     "enable": true,
     "multicast": "224.224.224.245",
-    "port": "30490",
+    "port": "30491",
     "interface": "eth0"
   }
 }

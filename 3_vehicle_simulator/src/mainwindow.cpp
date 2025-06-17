@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include "communication.h"
-extern void send_data(s_vehicle_data_t data);
+extern void send_data(const s_vehicle_data_t& data);
 s_vehicle_data_t vdata;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
