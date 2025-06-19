@@ -1,6 +1,6 @@
 
 # 简易工程智能座舱开发
-![](source/工程座舱架构图.png)
+![](source/工程座舱架构图v1.png)
 ## 基于vsomeip qt qnx 下面是各个文件夹的含义
 
 1_hello_world的内容是实现服务器和客户端发送hello 主要是基础功能测试 具体内容可以查看里面的readme
